@@ -1,0 +1,81 @@
+/* base setting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* class setting */
+.flex {
+    display: flex;
+}
+.rel {
+    position: relative;
+}
+.abs {
+    position: absolute;
+}
+
+.pos-x-center {
+    left: 50%;
+    transform: translateX(-50%);
+}
+.none {
+    display: none;
+}
+.event-none {
+    pointer-events: none;
+}
+
+/* nav:tool-box */
+.tool-box {
+    padding: 1rem 2rem;
+    top: 1rem;
+    gap: 1.5rem;
+    box-shadow: 0px 0px 1rem #ddd;
+    border-radius: 1rem;
+    z-index: 100;
+    background: #fff;
+}
+
+.tool-item::before {
+    content: "";
+    display: block;
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid #aaa;
+    transition: 0.5s;
+}
+.tool-item[data-shape="rect"]::before {
+    border-radius: 0.25rem;
+}
+.tool-item[data-shape="circle"]::before {
+    border-radius: 50%;
+}
+
+.tool-item:hover::before {
+    background: #eee;
+}
+.tool-item.selected::before {
+    background: #999;
+}
+/* canvas */
+#canvas-border {
+    left: 0;
+    top: 0;
+    z-index: 80;
+}
+#canvas-shape {
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    z-index: 90;
+}
