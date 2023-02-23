@@ -45,3 +45,9 @@ function createPath() {
         path,
     };
 }
+
+export function createRect({ x, y, width, height }) {
+    const { path } = createPath();
+    path.rect(x, y, width, height);
+    return { path };
+}

@@ -52,8 +52,8 @@ body {
     content: "";
     display: block;
     cursor: pointer;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
     border: 1px solid #aaa;
     transition: 0.5s;
 }
@@ -71,13 +71,13 @@ body {
     background: #999;
 }
 /* canvas */
-#canvas-border {
+#core-canvas {
     left: 0;
     top: 0;
     z-index: 80;
 }
-#canvas-shape {
-    cursor: pointer;
+#excute-canvas {
+    cursor: crosshair;
     left: 0;
     top: 0;
     z-index: 90;
