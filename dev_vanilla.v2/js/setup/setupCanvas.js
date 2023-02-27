@@ -7,19 +7,45 @@ export function setupCoreCanvas($target) {
     });
     const state = {
         shapes: [],
+        selectedShape: {},
     };
     const services = {
         renderShapes() {
             const { context } = canvasInstance;
             canvasInstance.clearAll();
             state.shapes.forEach((shape) => {
+                if (state.selectedShape === shape) {
+                    stores.state.excuteCanvasConfig.show();
+                    return;
+                }
                 context.stroke(shape.path);
             });
         },
     };
     const handler = {
-        mouseDown() {},
-        mouseMove() {},
+        mouseDown() {
+            if (canvasInstance.$canvas.classList.contains("cursor-move")) {
+                services.renderShapes();
+            }
+        },
+        mouseMove(event) {
+            const shape = state.shapes.find((shape) => {
+                for (let xy = -15; xy < 15; xy++) {
+                    if (canvasInstance.context.isPointInStroke(shape.path, event.offsetX + xy, event.offsetY)) {
+                        return true;
+                    } else if (canvasInstance.context.isPointInStroke(shape.path, event.offsetX, event.offsetY + xy)) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+            if (shape) {
+                canvasInstance.$canvas.classList.add("cursor-move");
+                state.selectedShape = shape;
+            } else {
+                canvasInstance.$canvas.classList.remove("cursor-move");
+            }
+        },
         mouseUp() {},
     };
     function setEvent() {
@@ -27,6 +53,7 @@ export function setupCoreCanvas($target) {
         $canvas.addEventListener("mousedown", handler.mouseDown);
         $canvas.addEventListener("mousemove", handler.mouseMove);
         $canvas.addEventListener("mouseup", handler.mouseUp);
+        // $canvas.addEventListener("click", handler.click);
     }
     setEvent();
     stores.state.coreCanvasConfig = canvasInstance;
